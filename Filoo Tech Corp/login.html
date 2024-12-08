@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Filoo Tech Corporation</title>
+    <link rel="stylesheet" href="style.css">
+    <script type="module">
+      import { NhostClient } from "@nhost/nhost-js";
+
+      const nhost = new NhostClient({
+        subdomain: "bndhtpllkpkdocqcopuf",
+        region: "eu-central-1"
+      });
+
+      async function login() {
+          const email = document.getElementById('login-email').value;
+          const password = document.getElementById('login-password').value;
+          try {
+              const response = await nhost.auth.signIn({
+                email: email,
+                password: password
+              });
+              if (response.error) {
+                  throw response.error;
+              }
+              if (!response.session?.user?.emailVerified) {
+                  alert('Please verify your email before logging in.');
+                  await nhost.auth.signOut();
+              } else {
+                  alert('Login successful');
+                  window.location.href = 'feature.html';
+              }
+          } catch (error) {
+              console.error("Error during login:", error);
+              alert(error.message);
+          }
+      }
+    </script>
+</head>
+<body>
+    <header>
+        <div class="logo">Filoo Tech</div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div id="auth-container">
+            <div id="login-form">
+                <h2>Login</h2>
+                <input type="email" id="login-email" placeholder="Email">
+                <input type="password" id="login-password" placeholder="Password">
+                <button onclick="login()">Login</button>
+                <p>Don't have an account? <a href="register.html">Register here</a></p>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2024 Filoo Tech Corporation. All rights reserved.</p>
+    </footer>
+</body>
+</html>

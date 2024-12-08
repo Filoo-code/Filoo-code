@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Filoo Tech Corporation</title>
+    <link rel="stylesheet" href="style.css">
+    <script type="module">
+      import { NhostClient } from "@nhost/nhost-js";
+
+      const nhost = new NhostClient({
+        subdomain: "bndhtpllkpkdocqcopuf",
+        region: "eu-central-1"
+      });
+
+      const validatePassword = (password) => {
+          const weakPasswords = ['123456', 'password', '123456789', '12345678', '12345', '1234567'];
+          return password.length >= 6 && password.length <= 10 && !weakPasswords.includes(password);
+      }
+
+      async function register() {
+          const email = document.getElementById('register-email').value;
+          const password = document.getElementById('register-password').value;
+          if (!validatePassword(password)) {
+              alert('Password must be 6-10 characters and cannot be a common password like "123456".');
+              return;
+          }
+          try {
+              console.log("Registering user...");
+              const response = await nhost.auth.signUp({
+                email: email,
+                password: password
+              });
+              if (response.error) {
+                  throw response.error;
+              }
+              alert('Registration successful. Please check your email to verify your account.');
+              window.location.href = 'feature.html'; // Redirect to the feature page
+          } catch (error) {
+              console.error("Error during registration:", error);
+              alert(error.message);
+          }
+      }
+    </script>
+</head>
+<body>
+    <header>
+        <div class="logo">Filoo Tech</div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div id="auth-container">
+            <div id="register-form">
+                <h2>Register</h2>
+                <input type="email" id="register-email" placeholder="Email">
+                <input type="password" id="register-password" placeholder="Password">
+                <button onclick="register()">Register</button>
+                <p>Already have an account? <a href="login.html">Login here</a></p>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2024 Filoo Tech Corporation. All rights reserved.</p>
+    </footer>
+</body>
+</html>

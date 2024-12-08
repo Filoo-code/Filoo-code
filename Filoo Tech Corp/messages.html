@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Messages - Filoo Tech Corporation</title>
+    <link rel="stylesheet" href="style.css">
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
+      import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js";
+      import { getFirestore, collection, addDoc, query, orderBy, onSnapshot } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js";
+
+      const firebaseConfig = {
+        apiKey: "AIzaSyC9YwqWazUa_9uKxNG07IFr7QqaOf7f7qA",
+        authDomain: "filoo-tech-corp.firebaseapp.com",
+        projectId: "filoo-tech-corp",
+        storageBucket: "filoo-tech-corp.firebasestorage.app",
+        messagingSenderId: "766683882515",
+        appId: "1:766683882515:web:055895af44b1b7c2da0be6",
+        measurementId: "G-LCR9D3NFGD"
+      };
+
+      const app = initializeApp(firebaseConfig);
+      const auth = getAuth(app);
+      const db = getFirestore(app);
+
+      let currentUser = null;
+
+      onAuthStateChanged(auth, (user) => {
+          if (user) {
+              currentUser = user;
+              loadMessages();
+          } else {
+              window.location.href = 'login.html'; // Redirect to login if not authenticated
+          }
+      });
+
+      async function sendMessage() {
+          const message = document.getElementById('message-input').value;
+          if (message) {
+              await addDoc(collection(db, "messages"), {
+                  uid: currentUser.uid,
+                  email: currentUser.email,
+                  message: message,
+                  timestamp: new Date()
+              });
+              document.getElementById('message-input').value = ''; // Clear the input
+          }
+      }
+
+      function loadMessages() {
+          const q = query(collection(db, "messages"), orderBy("timestamp", "asc"));
+          onSnapshot(q, (snapshot) => {
+              const messages = document.getElementById('messages');
+              messages.innerHTML = ''; // Clear previous messages
+              snapshot.forEach((doc) => {
+                  const messageData = doc.data();
+                  const messageElement = document.createElement('div');
+                  messageElement.classList.add('message');
+                  messageElement.innerHTML = `<strong>${messageData.email}:</strong> ${messageData.message}`;
+                  messages.appendChild(messageElement);
+              });
+          });
+      }
+    </script>
+</head>
+<body>
+    <header>
+        <div class="logo">Filoo Tech</div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section class="messages">
+            <h2>Messages</h2>
+            <div id="messages" class="message-list"></div>
+            <input type="text" id="message-input" placeholder="Type a message">
+            <button onclick="sendMessage()">Send</button>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 Filoo Tech Corporation. All rights reserved.</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services - Filoo Tech Corporation</title>
+    <link rel="stylesheet" href="style.css">
+    <script type="module">
+      // Import the functions you need from the SDKs you need
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
+      import { getAuth } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js";
+
+      // Your web app's Firebase configuration
+      const firebaseConfig = {
+        apiKey: "AIzaSyC9YwqWazUa_9uKxNG07IFr7QqaOf7f7qA",
+        authDomain: "filoo-tech-corp.firebaseapp.com",
+        projectId: "filoo-tech-corp",
+        storageBucket: "filoo-tech-corp.firebasestorage.app",
+        messagingSenderId: "766683882515",
+        appId: "1:766683882515:web:055895af44b1b7c2da0be6",
+        measurementId: "G-LCR9D3NFGD"
+      };
+
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const auth = getAuth(app);
+
+      // Protect page
+      auth.onAuthStateChanged((user) => {
+          if (!user) {
+              window.location.href = 'index.html'; // Redirect to login if not authenticated
+          }
+      });
+    </script>
+</head>
+<body>
+    <header>
+        <div class="logo">Filoo Tech</div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section class="services">
+            <h2>Our Services</h2>
+            <ul class="service-list">
+                <li><h3>Artificial Intelligence</h3><p>Leading AI solutions tailored to your business needs.</p></li>
+                <li><h3>Cybersecurity</h3><p>State-of-the-art security measures to protect your assets.</p></li>
+                <li><h3>Cloud Computing</h3><p>Scalable and reliable cloud services for modern enterprises.</p></li>
+                <li><h3>Software Development</h3><p>Custom software solutions to enhance your business processes.</p></li>
+                <li><h3>Data Analytics</h3><p>Insightful data analysis to drive informed decision-making.</p></li>
+                <li><h3>Blockchain Technology</h3><p>Innovative blockchain solutions for secure transactions.</p></li>
+                <li><h3>IoT Solutions</h3><p>Connecting devices to enhance operational efficiency.</p></li>
+                <li><h3>IT Consulting</h3><p>Expert advice to navigate your IT challenges and opportunities.</p></li>
+                <li><h3>Web Development</h3><p>Creating responsive and user-friendly websites.</p></li>
+                <li><h3>Mobile App Development</h3><p>Building mobile applications for iOS[_{{{CITATION{{{_1{](https://github.com/fujikawa-lab/rumpfeed/tree/ca8bb086ac55dbd966aefc3fcc7a5eccf588e6e8/content%2Fworkshops%2Fstyled_components%2FREADME.md)[_{{{CITATION{{{_2{](https://github.com/bgoonz/web-dev-utils-package/tree/65a7b21c0444f4cbeb3c313a750fb43560047e77/personal-utilities%2Fcopy-2-clip%2FREADME.md)[_{{{CITATION{{{_3{](https://github.com/toshiro-en-miyamoto/responsive/tree/4a400cc47b355d1c755114fafab8d4e583e0275c/HTML5%2F4-4_Grouping.md)[_{{{CITATION{{{_4{](https://github.com/biancabirsan/car-insurance/tree/bd14fbf8a2891b6502d108d0ddd3de1e5379aa3f/result.php)[_{{{CITATION{{{_5{](https://github.com/Eblazecode/HOHbornfire/tree/97144935461a8707f477c8ee2cf24a165e943239/storage%2Fframework%2Fviews%2Fb73fecb6f61be40f24298138a5ab6eb1323f95ae.php)

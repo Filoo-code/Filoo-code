@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instagram Features - Filoo Tech Corporation</title>
+    <link rel="stylesheet" href="style.css">
+    <script type="module">
+      import { NhostClient } from "@nhost/nhost-js";
+
+      const nhost = new NhostClient({
+        subdomain: "bndhtpllkpkdocqcopuf",
+        region: "eu-central-1"
+      });
+
+      nhost.auth.onAuthStateChanged((user) => {
+          if (!user) {
+              window.location.href = 'login.html'; // Redirect to login if not authenticated
+          }
+      });
+    </script>
+</head>
+<body>
+    <header>
+        <div class="logo">Filoo Tech</div>
+        <nav>
+            <ul>
+                <li><a href="home.html">Home</a></li>
+                <li><a href="reels.html">Reels</a></li>
+                <li><a href="notifications.html">Notifications</a></li>
+                <li><a href="search.html">Search</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section class="hero">
+            <h1>Welcome to the Instagram Features Page!</h1>
+            <p>Explore Reels, Notifications, Search, and more.</p>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 Filoo Tech Corporation. All rights reserved.</p>
+    </footer>
+</body>
+</html>
